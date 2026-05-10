@@ -1,0 +1,16 @@
+<section class="game screen">
+  <header class="game__header">
+    <div>
+      <p class="game__eyebrow">Nivel 1</p>
+      <h1>Rompecabezas de cumpleanos</h1>
+    </div>
+    <button class="ghost-button" type="button" (click)="game.restartGame()">Salir</button>
+  </header>
+
+  <app-progress-bar></app-progress-bar>
+
+  <div class="game__layout">
+    <app-question-card></app-question-card>
+    <app-puzzle-board></app-puzzle-board>
+  </div>
+</section>

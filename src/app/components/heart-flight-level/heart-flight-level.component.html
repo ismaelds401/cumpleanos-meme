@@ -1,0 +1,136 @@
+<section
+  class="heart-game screen"
+  [ngClass]="{
+    'heart-game--space': game.state().heartFlightStatus === 'bottle' || game.state().heartFlightStatus === 'bottleCollected' || game.state().heartFlightStatus === 'delivered' || game.state().heartFlightStatus === 'letterOpen' || game.state().heartFlightStatus === 'finalMessage'
+  }"
+>
+  <header class="heart-game__header">
+    <div>
+      <p class="heart-game__eyebrow">Nivel 5</p>
+      <h1>Corazon aerostatico</h1>
+      <p class="heart-game__hint">
+        Apreta rapido varias veces para inflar el corazon. Si te demoras, explota y no llega con su enamorado.
+      </p>
+    </div>
+    <button class="ghost-button" type="button" (click)="game.restartGame()">Salir</button>
+  </header>
+
+  <article class="heart-stage panel">
+    <div class="sky" aria-hidden="true">
+      <span *ngFor="let star of stars" class="sky__star" [style.--star-index]="star"></span>
+    </div>
+
+    <div
+      class="heart-balloon"
+      [style.--inflate]="game.state().heartFlightClicks"
+      [ngClass]="{
+        'heart-balloon--failed': game.state().heartFlightStatus === 'failed',
+        'heart-balloon--flying': game.state().heartFlightStatus === 'flying',
+        'heart-balloon--hidden': game.state().heartFlightStatus === 'bottle' || game.state().heartFlightStatus === 'bottleCollected' || game.state().heartFlightStatus === 'delivered' || game.state().heartFlightStatus === 'letterOpen' || game.state().heartFlightStatus === 'finalMessage'
+      }"
+      aria-hidden="true"
+    >
+      <img class="heart-balloon__image" src="assets/img/heart-balloon-ia.png" alt="" />
+      <span class="heart-balloon__burst"></span>
+    </div>
+
+    <div *ngIf="game.state().heartFlightStatus === 'bottle'" class="bottle-scene bottle-scene--alone">
+      <button class="bottle" type="button" aria-label="Recoger botella" (click)="collectBottle()">
+        <span class="bottle__glass"></span>
+        <span class="bottle__paper"></span>
+      </button>
+      <p>Haz click en la botella para que el chico suba y la agarre.</p>
+    </div>
+
+    <div *ngIf="game.state().heartFlightStatus === 'bottleCollected'" class="bottle-scene bottle-scene--collect">
+      <button class="bottle bottle--waiting" type="button" aria-label="Botella recogida" disabled>
+        <span class="bottle__glass"></span>
+        <span class="bottle__paper"></span>
+      </button>
+      <div class="pickup" aria-hidden="true">
+        <div class="delivery-balloon">
+          <img class="delivery-balloon__image" src="assets/img/heart-balloon-ia.png" alt="" />
+        </div>
+        <span class="delivery__person delivery__boy delivery__boy--pickup">
+          <img class="delivery__photo delivery__photo--boy" src="assets/img/student-boy.png" alt="" (error)="hideMissingAsset($event)" />
+          <span class="delivery__backpack"></span>
+          <span class="delivery__notebooks"></span>
+        </span>
+      </div>
+      <p>El chico sube con su corazon aerostatico y recoge la botella.</p>
+    </div>
+
+    <div *ngIf="game.state().heartFlightStatus === 'delivered'" class="ground-scene">
+      <div class="ground-scene__skyline" aria-hidden="true">
+        <img
+          class="paris-photo-background"
+          src="assets/img/paris-france-background.png"
+          alt=""
+          (error)="hideMissingAsset($event)"
+        />
+        <span class="paris-skyline"></span>
+        <span class="eiffel-tower">
+          <span class="eiffel-tower__top"></span>
+          <span class="eiffel-tower__deck eiffel-tower__deck--upper"></span>
+          <span class="eiffel-tower__deck eiffel-tower__deck--lower"></span>
+        </span>
+        <div class="delivery-balloon delivery-balloon--ground">
+          <img class="delivery-balloon__image" src="assets/img/heart-balloon-ia.png" alt="" />
+        </div>
+        <span class="delivery__person delivery__boy">
+          <img class="delivery__photo delivery__photo--boy" src="assets/img/student-boy.png" alt="" (error)="hideMissingAsset($event)" />
+          <span class="delivery__backpack"></span>
+          <span class="delivery__notebooks"></span>
+        </span>
+        <span class="delivery__person delivery__girl">
+          <img class="delivery__photo delivery__photo--girl" src="assets/img/student-girl.png" alt="" (error)="hideMissingAsset($event)" />
+          <span class="delivery__backpack"></span>
+          <span class="delivery__notebooks"></span>
+        </span>
+        <span class="delivery__gift"></span>
+      </div>
+
+      <button class="primary-button story-button" type="button" (click)="openLetter()">Leer carta</button>
+    </div>
+
+    <div *ngIf="game.state().heartFlightStatus === 'letterOpen'" class="letter panel" role="dialog" aria-label="Carta de cumpleanos">
+      <p class="letter__eyebrow">Carta para mi cumpleanera</p>
+      <h2>Para ti, mi amor</h2>
+      <p *ngFor="let paragraph of game.config.loveLetterParagraphs">{{ paragraph }}</p>
+
+      <button class="primary-button" type="button" (click)="showFinalMessage()">Finalizar de leer</button>
+    </div>
+
+    <div *ngIf="game.state().heartFlightStatus === 'finalMessage'" class="final-scene" aria-live="polite">
+      <div class="closed-letter" aria-hidden="true"></div>
+      <div class="final-love-message">Te amo mucho mi meme, mi cachetona favorita, feliz cumpleanos</div>
+      <div class="final-heart-23" aria-label="Corazon 23">23</div>
+      <button class="primary-button" type="button" (click)="game.finishHeartFlightLevel()">Terminar sorpresa</button>
+    </div>
+
+    <div
+      *ngIf="game.state().heartFlightStatus === 'idle' || game.state().heartFlightStatus === 'inflating' || game.state().heartFlightStatus === 'failed'"
+      class="heart-controls"
+    >
+      <div class="heart-controls__progress" aria-label="Inflado del corazon">
+        <span [style.width.%]="game.heartFlightProgressPercent()"></span>
+      </div>
+
+      <p
+        class="heart-controls__message"
+        [ngClass]="{ 'heart-controls__message--failed': game.state().heartFlightStatus === 'failed' }"
+      >
+        {{ game.state().heartFlightMessage || 'Empieza a inflar el corazon antes de que se escape el aire.' }}
+      </p>
+
+      <button
+        class="primary-button heart-controls__pump"
+        type="button"
+        [disabled]="game.state().heartFlightStatus === 'flying' || game.state().heartFlightStatus === 'bottle' || game.state().heartFlightStatus === 'bottleCollected' || game.state().heartFlightStatus === 'delivered' || game.state().heartFlightStatus === 'letterOpen' || game.state().heartFlightStatus === 'finalMessage'"
+        (click)="pumpHeart()"
+      >
+        Apretar corazon
+      </button>
+    </div>
+  </article>
+</section>

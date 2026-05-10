@@ -1,0 +1,114 @@
+:root {
+  --color-bg: #fff7fb;
+  --color-surface: #ffffff;
+  --color-text: #3f1d2d;
+  --color-muted: #8a5b70;
+  --color-primary: #e11d48;
+  --color-primary-strong: #be123c;
+  --color-secondary: #f59e0b;
+  --color-warning: #facc15;
+  --color-danger: #ef4444;
+  --color-border: #f7c7d6;
+  --shadow-soft: 0 18px 45px rgba(190, 18, 60, 0.12);
+  --radius-card: 18px;
+  --radius-control: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  color: var(--color-text);
+  background:
+    radial-gradient(circle at 8% 15%, rgba(251, 113, 133, 0.2), transparent 28rem),
+    radial-gradient(circle at 92% 10%, rgba(245, 158, 11, 0.18), transparent 30rem),
+    var(--color-bg);
+  font-family: Inter, Arial, sans-serif;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.screen {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(219, 228, 240, 0.88);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+}
+
+.primary-button,
+.secondary-button,
+.ghost-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  font-weight: 800;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.primary-button {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  box-shadow: 0 12px 28px rgba(225, 29, 72, 0.22);
+}
+
+.secondary-button {
+  color: var(--color-primary-strong);
+  background: #ffe4ec;
+}
+
+.ghost-button {
+  color: var(--color-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+}
+
+.primary-button:hover,
+.secondary-button:hover,
+.ghost-button:hover {
+  transform: translateY(-1px);
+}
+
+.primary-button:disabled,
+.secondary-button:disabled,
+.ghost-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 720px) {
+  .screen {
+    width: min(100% - 20px, 1180px);
+    padding: 18px 0;
+  }
+}

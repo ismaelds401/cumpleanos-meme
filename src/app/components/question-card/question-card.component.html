@@ -1,0 +1,44 @@
+<article class="question panel">
+  <div class="question__topline">
+    <span>Pregunta {{ game.state().currentQuestionIndex + 1 }} de {{ game.questions.length }}</span>
+    <span>{{ game.config.pointsPerCorrectAnswer }} pts</span>
+  </div>
+
+  <h2>{{ game.currentQuestion().text }}</h2>
+
+  <div class="question__options" role="list">
+    <button
+      *ngFor="let option of game.currentQuestion().options"
+      class="option"
+      type="button"
+      [ngClass]="optionClass(option)"
+      [disabled]="game.state().answerStatus === 'correct'"
+      (click)="game.submitAnswer(option)"
+    >
+      {{ option }}
+    </button>
+  </div>
+
+  <div
+    *ngIf="game.state().feedbackMessage"
+    class="feedback"
+    [ngClass]="{
+      'feedback--correct': game.state().answerStatus === 'correct',
+      'feedback--incorrect': game.state().answerStatus === 'incorrect'
+    }"
+  >
+    {{ game.state().feedbackMessage }}
+  </div>
+
+  <div class="question__actions" *ngIf="game.state().answerStatus === 'incorrect'">
+    <button class="secondary-button" type="button" (click)="game.retryQuestion()">Intentar nuevamente</button>
+    <button
+      class="ghost-button"
+      type="button"
+      *ngIf="game.config.allowSkipAfterWrongAnswer"
+      (click)="game.skipQuestion()"
+    >
+      Pasar por ahora
+    </button>
+  </div>
+</article>

@@ -1,0 +1,24 @@
+<article class="puzzle panel">
+  <div class="puzzle__header">
+    <div>
+      <p>Rompecabezas</p>
+      <h2>{{ game.unlockedPieces() }}/{{ game.totalPieces }} piezas</h2>
+    </div>
+    <span>{{ game.progressPercent() }}%</span>
+  </div>
+
+  <div
+    class="puzzle__grid"
+    [style.grid-template-columns]="'repeat(' + game.config.puzzleColumns + ', 1fr)'"
+    [style.grid-template-rows]="'repeat(' + game.config.puzzleRows + ', 1fr)'"
+  >
+    <div
+      *ngFor="let piece of game.state().pieces"
+      class="piece"
+      [ngClass]="{ 'piece--unlocked': piece.unlocked }"
+      [ngStyle]="pieceStyle(piece)"
+    >
+      <span *ngIf="!piece.unlocked">{{ piece.id }}</span>
+    </div>
+  </div>
+</article>

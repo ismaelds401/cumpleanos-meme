@@ -1,0 +1,85 @@
+<section class="creation screen">
+  <header class="creation__header">
+    <div>
+      <p class="creation__eyebrow">Nivel 4</p>
+      <h1>Crea a la cumpleanera</h1>
+      <p class="creation__hint">
+        Arrastra al portal las 5 cualidades que forman su esencia. Hay mas elementos buenos que malos, pero no todos pertenecen al portal.
+      </p>
+    </div>
+    <button class="ghost-button" type="button" (click)="game.restartGame()">Salir</button>
+  </header>
+
+  <div class="creation__layout">
+    <article class="elements panel">
+      <div class="elements__topline">
+        <span>Elementos repartidos</span>
+        <strong>{{ game.state().selectedCreationElementIds.length }}/{{ game.config.creationTargetElementIds.length }}</strong>
+      </div>
+
+      <div class="elements__grid">
+        <button
+          *ngFor="let element of game.config.creationElements"
+          class="element-card"
+          type="button"
+          draggable="true"
+          [disabled]="isSelected(element.id) || game.state().birthdayPersonFormed"
+          [ngClass]="{
+            'element-card--selected': isSelected(element.id),
+            'element-card--bad': element.kind === 'bad'
+          }"
+          (click)="addByClick(element)"
+          (dragstart)="startDrag($event, element.id)"
+        >
+          <span class="element-card__icon" [ngClass]="'element-card__icon--' + element.icon" aria-hidden="true"></span>
+          <span class="element-card__label">{{ element.label }}</span>
+          <small>{{ element.description }}</small>
+        </button>
+      </div>
+    </article>
+
+    <article class="portal-panel panel">
+      <div
+        class="portal"
+        [ngClass]="{
+          'portal--active': isPortalActive,
+          'portal--complete': game.state().birthdayPersonFormed
+        }"
+        (dragover)="allowDrop($event)"
+        (dragleave)="leavePortal()"
+        (drop)="dropOnPortal($event)"
+      >
+        <div class="portal__ring" aria-hidden="true"></div>
+
+        <div class="formed-person" [ngClass]="{ 'formed-person--ready': game.state().birthdayPersonFormed }" aria-hidden="true">
+          <span class="formed-person__hair"></span>
+          <span class="formed-person__head"></span>
+          <span class="formed-person__body"></span>
+          <span class="formed-person__glow"></span>
+        </div>
+
+        <div class="portal__copy">
+          <h2>{{ game.state().birthdayPersonFormed ? 'Cumpleanera formada' : 'Portal de cualidades' }}</h2>
+          <p>{{ game.state().creationMessage || 'Suelta aqui una cualidad para empezar a formar a la cumpleanera.' }}</p>
+        </div>
+      </div>
+
+      <div class="creation__progress" aria-label="Progreso del portal">
+        <span [style.width.%]="game.creationProgressPercent()"></span>
+      </div>
+
+      <div class="selected-elements">
+        <span *ngFor="let element of game.selectedCreationElements()">{{ element.label }}</span>
+      </div>
+
+      <button
+        class="primary-button"
+        type="button"
+        [disabled]="!game.hasFormedBirthdayPerson()"
+        (click)="game.finishCreationLevel()"
+      >
+        Ir al corazon aerostatico
+      </button>
+    </article>
+  </div>
+</section>

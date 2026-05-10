@@ -1,0 +1,79 @@
+<section class="customizer screen">
+  <header class="customizer__header">
+    <div>
+      <p class="customizer__eyebrow">Nivel 2</p>
+      <h1>Prepara a la cumpleanera</h1>
+      <p class="customizer__hint">Pista: blusa rosa, falda blanca, zapatos dorados y corona lila.</p>
+    </div>
+    <button class="ghost-button" type="button" (click)="game.restartGame()">Salir</button>
+  </header>
+
+  <div class="customizer__layout">
+    <article class="avatar panel" aria-label="Vista previa de la cumpleanera">
+      <div
+        class="avatar__stage"
+        [ngClass]="{ 'avatar__stage--complete': game.state().customizationStatus === 'correct' }"
+      >
+        <div class="person">
+          <span class="person__cap" [ngStyle]="optionStyle('gorra')"></span>
+          <span class="person__head"></span>
+          <span class="person__shirt" [ngStyle]="optionStyle('polo')"></span>
+          <span class="person__pants" [ngStyle]="optionStyle('pantalon')"></span>
+          <span class="person__shoes" [ngStyle]="optionStyle('zapatillas')"></span>
+        </div>
+
+        <div *ngIf="game.state().customizationStatus === 'correct'" class="avatar__complete">
+          <strong>Look especial listo</strong>
+          <span>Asi queda la cumpleanera vestida.</span>
+        </div>
+      </div>
+
+      <div
+        *ngIf="game.state().customizationMessage"
+        class="customizer__feedback"
+        [ngClass]="{
+          'customizer__feedback--correct': game.state().customizationStatus === 'correct',
+          'customizer__feedback--incorrect': game.state().customizationStatus === 'incorrect'
+        }"
+      >
+        {{ game.state().customizationMessage }}
+      </div>
+    </article>
+
+    <article class="wardrobe panel">
+      <div class="wardrobe__topline">
+        <span>Elige 1 opcion por detalle</span>
+        <span>{{ game.config.pointsForCustomization }} pts</span>
+      </div>
+
+      <div class="wardrobe__groups">
+        <section *ngFor="let category of game.config.customizationOptions" class="wardrobe__group">
+          <h2>{{ category.label }}</h2>
+
+          <div class="wardrobe__options">
+            <button
+              *ngFor="let option of category.options"
+              class="clothing-option"
+              type="button"
+              [ngClass]="{ 'clothing-option--selected': isSelected(category.id, option.id) }"
+              [ngStyle]="optionStyle(category.id, option.id)"
+              (click)="game.selectClothingOption(category.id, option.id)"
+            >
+              <span aria-hidden="true"></span>
+              {{ option.label }}
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <button
+        class="primary-button"
+        type="button"
+        [disabled]="!game.hasCompleteOutfit()"
+        (click)="game.submitCustomization()"
+      >
+        Confirmar look especial
+      </button>
+    </article>
+  </div>
+</section>

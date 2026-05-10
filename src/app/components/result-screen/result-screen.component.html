@@ -1,0 +1,30 @@
+<section class="result screen">
+  <div class="result__content panel">
+    <div class="result__copy">
+      <p class="result__eyebrow">Sorpresa completada</p>
+      <h1>Feliz cumpleanos, amor</h1>
+      <p>
+        Hoy celebramos tus 23 anos. Gracias por ser mi enamorada, mi alegria y una persona tan especial para mi.
+      </p>
+
+      <div class="result__score">
+        <span>Carino acumulado</span>
+        <strong>{{ game.state().score }}</strong>
+      </div>
+
+      <div class="result__stats">
+        <span>{{ game.state().correctAnswers }} respuestas correctas</span>
+        <span>{{ game.state().attempts }} intentos realizados</span>
+        <span>{{ game.unlockedPieces() }} piezas desbloqueadas</span>
+        <span>{{ game.unlockedKeys() }} llaves conseguidas</span>
+        <span>{{ game.selectedCreationElements().length }} cualidades reunidas</span>
+        <span>Carta leida entre estrellas</span>
+        <span>23 anos celebrados</span>
+      </div>
+
+      <button class="primary-button" type="button" (click)="game.startGame()">Repetir sorpresa</button>
+    </div>
+
+    <div class="result__image" [style.background-image]="'url(' + game.config.puzzleImageUrl + ')'"></div>
+  </div>
+</section>

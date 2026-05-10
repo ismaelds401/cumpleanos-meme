@@ -1,0 +1,1015 @@
+.heart-game {
+  width: min(1520px, calc(100% - 24px));
+}
+
+.heart-game__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.heart-game__eyebrow,
+.letter__eyebrow {
+  margin: 0 0 6px;
+  color: var(--color-secondary);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.heart-game__hint {
+  max-width: 760px;
+  margin-top: 8px;
+  color: var(--color-muted);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.heart-stage {
+  position: relative;
+  display: grid;
+  min-height: 920px;
+  overflow: hidden;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(99, 102, 241, 0.46), transparent 22rem),
+    radial-gradient(circle at 78% 92%, rgba(14, 165, 233, 0.24), transparent 26rem),
+    radial-gradient(circle at 50% 8%, rgba(255, 255, 255, 0.15), transparent 20rem),
+    linear-gradient(180deg, #0b1029 0%, #111827 48%, #020617 100%);
+}
+
+.heart-game--space .heart-stage {
+  min-height: 1080px;
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+}
+
+.sky__star {
+  position: absolute;
+  left: calc((var(--star-index) * 29) % 96 * 1%);
+  top: calc((var(--star-index) * 41) % 88 * 1%);
+  z-index: 1;
+  width: calc(1px + (var(--star-index) % 5) * 1px);
+  height: calc(1px + (var(--star-index) % 5) * 1px);
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.92), 18px 24px 0 -1px rgba(255, 255, 255, 0.52);
+  opacity: calc(0.48 + (var(--star-index) % 6) * 0.08);
+  animation: starTwinkle calc(1.8s + (var(--star-index) % 5) * 0.45s) ease-in-out infinite alternate;
+}
+
+.sky__star:nth-child(3n) {
+  box-shadow:
+    0 0 12px rgba(255, 255, 255, 0.96),
+    -28px 16px 0 -1px rgba(216, 180, 254, 0.7),
+    32px -12px 0 -1px rgba(186, 230, 253, 0.68);
+}
+
+.sky__star:nth-child(5n) {
+  transform: scale(1.35);
+}
+
+.heart-balloon {
+  position: relative;
+  z-index: 2;
+  width: min(430px, 72vw);
+  height: min(570px, 94vw);
+  transform: scale(calc(0.68 + var(--inflate) * 0.021));
+}
+
+.heart-balloon--flying {
+  animation: flyAway 2.6s ease-in forwards;
+}
+
+.heart-balloon--hidden {
+  opacity: 0;
+}
+
+.heart-balloon__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 32px rgba(2, 6, 23, 0.34));
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.heart-balloon__burst {
+  position: absolute;
+  top: 116px;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  opacity: 0;
+  background: #fbbf24;
+  clip-path: polygon(50% 0, 60% 35%, 96% 18%, 70% 50%, 100% 72%, 62% 66%, 50% 100%, 38% 66%, 0 72%, 30% 50%, 4% 18%, 40% 35%);
+  transform: translateX(-50%);
+}
+
+.heart-balloon--failed .heart-balloon__image {
+  opacity: 0.18;
+}
+
+.heart-balloon--failed .heart-balloon__burst {
+  opacity: 1;
+}
+
+.bottle-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  place-content: center;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+}
+
+.delivery {
+  position: relative;
+  width: min(640px, 88vw);
+  height: 360px;
+}
+
+.delivery-balloon {
+  position: absolute;
+  top: -40px;
+  left: 48px;
+  width: 250px;
+  height: 340px;
+}
+
+.bottle-scene--delivered .delivery-balloon {
+  animation: balloonDescend 1.8s ease-out both;
+}
+
+.delivery-balloon__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 24px rgba(2, 6, 23, 0.32));
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.delivery__person {
+  position: absolute;
+  bottom: 18px;
+  width: 76px;
+  height: 164px;
+  background: linear-gradient(90deg, transparent 0 21px, #f8fafc 21px 55px, transparent 55px 100%);
+  border-radius: 28px 28px 14px 14px;
+  filter: drop-shadow(0 18px 18px rgba(2, 6, 23, 0.28));
+}
+
+.delivery__photo {
+  position: absolute;
+  right: 50%;
+  bottom: -4px;
+  z-index: 4;
+  display: block;
+  width: 190px;
+  max-width: none;
+  height: auto;
+  object-fit: contain;
+  transform: translateX(50%);
+  filter: drop-shadow(0 22px 24px rgba(2, 6, 23, 0.34));
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.delivery__photo:not([hidden]) ~ .delivery__backpack,
+.delivery__photo:not([hidden]) ~ .delivery__notebooks {
+  display: none;
+}
+
+.delivery__person:has(.delivery__photo:not([hidden])) {
+  width: 190px;
+  height: 250px;
+  background: none;
+  filter: none;
+}
+
+.delivery__person:has(.delivery__photo:not([hidden]))::before,
+.delivery__person:has(.delivery__photo:not([hidden]))::after {
+  display: none;
+}
+
+.delivery__photo--girl {
+  width: 205px;
+}
+
+.delivery__boy {
+  left: 130px;
+  background:
+    linear-gradient(90deg, transparent 0 21px, #f8fafc 21px 55px, transparent 55px 100%),
+    linear-gradient(90deg, #0f172a 0 20px, #172554 20px 56px, #0f172a 56px 100%);
+  border-radius: 26px 26px 16px 16px;
+}
+
+.bottle-scene--collect .delivery__boy {
+  animation: boyCollect 1.4s ease-out both;
+}
+
+.bottle-scene--delivered .delivery__boy {
+  left: 260px;
+  animation: boyWalk 1.6s ease-out both;
+}
+
+.delivery__boy--pickup {
+  top: auto;
+  bottom: 76px;
+  left: calc(50% - 24px);
+  z-index: 3;
+  transform: scale(0.78);
+  animation: boyDropFromBalloon 2s cubic-bezier(0.2, 0.85, 0.22, 1) both;
+}
+
+.delivery__girl {
+  right: 130px;
+  width: 84px;
+  background:
+    linear-gradient(90deg, transparent 0 22px, #f8fafc 22px 58px, transparent 58px 100%),
+    linear-gradient(90deg, #93c5fd 0 22px, #60a5fa 22px 58px, #93c5fd 58px 100%);
+  border-radius: 30px 30px 16px 16px;
+}
+
+.delivery__boy::before,
+.delivery__girl::before {
+  position: absolute;
+  top: -48px;
+  left: 20px;
+  width: 38px;
+  height: 42px;
+  background: #f3b58d;
+  border-radius: 50%;
+  content: '';
+}
+
+.delivery__boy::before {
+  box-shadow:
+    0 -14px 0 -3px #2b140e,
+    -10px -8px 0 -4px #2b140e,
+    10px -7px 0 -5px #2b140e;
+}
+
+.delivery__girl::before {
+  left: 23px;
+  box-shadow:
+    0 -15px 0 -3px #3b2418,
+    -17px 7px 0 0 #3b2418,
+    16px 7px 0 -1px #3b2418,
+    -21px 24px 0 -2px #3b2418;
+}
+
+.delivery__boy::after {
+  position: absolute;
+  top: 50px;
+  right: -42px;
+  width: 58px;
+  height: 11px;
+  background: #f0b38f;
+  border-radius: 999px;
+  transform: rotate(-12deg);
+  content: '';
+}
+
+.delivery__girl::after {
+  position: absolute;
+  top: 54px;
+  left: -34px;
+  width: 52px;
+  height: 11px;
+  background: #f0b38f;
+  border-radius: 999px;
+  transform: rotate(12deg);
+  content: '';
+}
+
+.delivery__backpack {
+  position: absolute;
+  top: 28px;
+  right: -15px;
+  width: 22px;
+  height: 86px;
+  background: #0f172a;
+  border-radius: 10px 10px 14px 14px;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.12);
+}
+
+.delivery__boy .delivery__backpack {
+  background: #075985;
+}
+
+.delivery__notebooks {
+  position: absolute;
+  top: 66px;
+  left: -21px;
+  width: 52px;
+  height: 66px;
+  background: #172554;
+  border: 3px solid #f8fafc;
+  border-radius: 5px;
+  transform: rotate(-7deg);
+  box-shadow: -8px -8px 0 -3px #c084fc;
+}
+
+.delivery__girl .delivery__notebooks {
+  top: 70px;
+  left: 14px;
+  width: 58px;
+  height: 72px;
+  transform: rotate(5deg);
+  box-shadow: -7px -7px 0 -3px #dbeafe;
+}
+
+.delivery__gift {
+  position: absolute;
+  right: 206px;
+  bottom: 78px;
+  width: 38px;
+  height: 26px;
+  background: #fff7ed;
+  border: 3px solid #f59e0b;
+  border-radius: 6px;
+  opacity: 0;
+}
+
+.bottle-scene--collect .delivery__gift,
+.bottle-scene--delivered .delivery__gift {
+  opacity: 1;
+}
+
+.bottle-scene--collect .delivery__gift {
+  left: 302px;
+  right: auto;
+  animation: giftLift 1.4s ease-out both;
+}
+
+.bottle {
+  position: relative;
+  width: 150px;
+  height: 230px;
+  background: transparent;
+  cursor: pointer;
+  animation: bottleFloat 4.2s ease-in-out infinite;
+}
+
+.bottle--waiting {
+  pointer-events: none;
+}
+
+.story-button {
+  min-width: 180px;
+  font-size: 1.08rem;
+}
+
+.bottle__glass {
+  position: absolute;
+  inset: 35px 34px 18px;
+  background: rgba(125, 211, 252, 0.28);
+  border: 4px solid rgba(255, 255, 255, 0.82);
+  border-radius: 42px 42px 28px 28px;
+  transform: rotate(-18deg);
+}
+
+.bottle__glass::before {
+  position: absolute;
+  top: -48px;
+  left: 24px;
+  width: 26px;
+  height: 54px;
+  background: rgba(125, 211, 252, 0.28);
+  border: 4px solid rgba(255, 255, 255, 0.82);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  content: '';
+}
+
+.bottle__paper {
+  position: absolute;
+  top: 101px;
+  left: 45px;
+  z-index: 2;
+  width: 68px;
+  height: 34px;
+  background: repeating-linear-gradient(90deg, #fed7aa 0 6px, #fff7ed 6px 18px);
+  border: 3px solid #92400e;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 5px rgba(255, 247, 237, 0.74);
+  transform: rotate(-18deg);
+}
+
+.bottle__paper::before {
+  position: absolute;
+  top: 5px;
+  left: -8px;
+  width: 18px;
+  height: 18px;
+  background: #fff7ed;
+  border: 3px solid #92400e;
+  border-radius: 50%;
+  content: '';
+}
+
+.letter {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  gap: 14px;
+  width: min(680px, calc(100% - 34px));
+  padding: 34px 38px;
+  background:
+    linear-gradient(90deg, rgba(244, 114, 182, 0.14) 0 2px, transparent 2px 100%),
+    repeating-linear-gradient(180deg, transparent 0 33px, rgba(216, 180, 254, 0.2) 33px 34px),
+    #ffffff;
+  background-position: 28px 0, 0 42px, 0 0;
+  border: 1px solid rgba(216, 180, 254, 0.75);
+  border-radius: 12px;
+  box-shadow: 0 26px 70px rgba(2, 6, 23, 0.42), 0 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.letter p {
+  color: #4c1d3f;
+  line-height: 1.6;
+}
+
+.letter h2 {
+  color: #9d174d;
+}
+
+.letter__title {
+  color: #9f1239;
+  font-size: clamp(2.2rem, 6vw, 4.8rem);
+  line-height: 1;
+  text-align: center;
+}
+
+.bottle-scene--alone {
+  gap: 18px;
+}
+
+.bottle-scene--alone .bottle {
+  transform: scale(1.08);
+}
+
+.pickup {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pickup .delivery-balloon {
+  top: auto;
+  bottom: 120px;
+  left: calc(50% - 125px);
+  transform: scale(0.92);
+  animation: balloonPickup 2s cubic-bezier(0.2, 0.85, 0.22, 1) both;
+}
+
+.bottle-scene--collect .bottle {
+  animation: bottleTaken 2s ease-in both;
+}
+
+.ground-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 24px;
+  padding-bottom: 110px;
+}
+
+.ground-scene::before {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 48%;
+  background:
+    radial-gradient(circle at 20% 0, rgba(251, 191, 36, 0.24), transparent 14rem),
+    linear-gradient(180deg, rgba(127, 29, 29, 0.03), rgba(91, 53, 35, 0.54) 32%, rgba(22, 101, 52, 0.78));
+  content: '';
+}
+
+.ground-scene__skyline {
+  position: relative;
+  width: min(900px, 94vw);
+  height: 660px;
+}
+
+.paris-photo-background {
+  position: absolute;
+  inset: -70px -36px -110px;
+  z-index: -1;
+  display: block;
+  width: calc(100% + 72px);
+  height: calc(100% + 180px);
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: inset 0 -160px 130px rgba(2, 6, 23, 0.22);
+  filter: saturate(1.08) contrast(1.04) brightness(0.92);
+}
+
+.ground-scene__skyline:has(.paris-photo-background:not([hidden])) .paris-skyline,
+.ground-scene__skyline:has(.paris-photo-background:not([hidden])) .eiffel-tower {
+  opacity: 0;
+}
+
+.paris-skyline {
+  position: absolute;
+  right: 0;
+  bottom: 92px;
+  left: 0;
+  height: 145px;
+  opacity: 0.88;
+  background:
+    linear-gradient(180deg, transparent 0 32px, rgba(30, 41, 59, 0.94) 32px 100%),
+    repeating-linear-gradient(90deg, transparent 0 30px, rgba(251, 207, 232, 0.58) 30px 37px, transparent 37px 68px),
+    linear-gradient(90deg, #172554 0 12%, #1e293b 12% 28%, #0f172a 28% 46%, #1f2937 46% 70%, #111827 70% 100%);
+  border-radius: 18px 18px 0 0;
+  clip-path: polygon(0 44%, 6% 44%, 6% 30%, 14% 30%, 14% 45%, 22% 45%, 22% 24%, 31% 24%, 31% 45%, 40% 45%, 40% 34%, 49% 34%, 49% 45%, 58% 45%, 58% 28%, 68% 28%, 68% 45%, 77% 45%, 77% 22%, 87% 22%, 87% 45%, 100% 45%, 100% 100%, 0 100%);
+}
+
+.eiffel-tower {
+  position: absolute;
+  right: 96px;
+  bottom: 94px;
+  z-index: 0;
+  width: 170px;
+  height: 380px;
+  filter: drop-shadow(0 18px 24px rgba(2, 6, 23, 0.28));
+}
+
+.eiffel-tower::before,
+.eiffel-tower::after {
+  position: absolute;
+  bottom: 0;
+  width: 18px;
+  height: 330px;
+  background: linear-gradient(180deg, #64748b, #1f2937);
+  content: '';
+}
+
+.eiffel-tower::before {
+  left: 36px;
+  transform: skewX(-13deg);
+}
+
+.eiffel-tower::after {
+  right: 36px;
+  transform: skewX(13deg);
+}
+
+.eiffel-tower__top {
+  position: absolute;
+  top: 0;
+  left: 78px;
+  width: 14px;
+  height: 132px;
+  background: linear-gradient(180deg, #cbd5e1, #475569);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.eiffel-tower__deck {
+  position: absolute;
+  left: 24px;
+  z-index: 1;
+  width: 122px;
+  height: 14px;
+  background: #cbd5e1;
+  border-radius: 999px;
+  box-shadow: 0 24px 0 -4px rgba(148, 163, 184, 0.8);
+}
+
+.eiffel-tower__deck--upper {
+  top: 138px;
+  left: 48px;
+  width: 76px;
+}
+
+.eiffel-tower__deck--lower {
+  bottom: 116px;
+}
+
+.delivery-balloon--ground {
+  top: 24px;
+  left: 78px;
+  transform: scale(0.98);
+  animation: balloonLand 1.5s ease-out both;
+}
+
+.ground-scene .delivery__boy {
+  left: 330px;
+  bottom: 82px;
+  animation: boyWalk 1.4s ease-out 0.6s both;
+}
+
+.ground-scene .delivery__girl {
+  right: 120px;
+  bottom: 82px;
+}
+
+.ground-scene .delivery__gift {
+  right: 282px;
+  bottom: 178px;
+  opacity: 1;
+  animation: giftOffer 1.2s ease-out 1s both;
+}
+
+.ground-scene .story-button {
+  position: relative;
+  z-index: 2;
+  min-width: 210px;
+}
+
+.final-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 32px;
+  padding: 58px 22px 70px;
+  background: radial-gradient(circle at 50% 0, rgba(216, 180, 254, 0.18), transparent 32rem);
+}
+
+.closed-letter {
+  width: min(340px, 62vw);
+  height: 198px;
+  margin-top: 145px;
+  background: linear-gradient(135deg, #ffffff, #fdf2f8);
+  border: 3px solid rgba(216, 180, 254, 0.95);
+  border-radius: 14px;
+  box-shadow: 0 22px 48px rgba(2, 6, 23, 0.28);
+  clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+  animation: closeLetter 0.9s ease-out both;
+}
+
+.final-love-message {
+  position: relative;
+  z-index: 1;
+  order: -1;
+  width: min(1080px, 96%);
+  color: #d8b4fe;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.25rem, 5.2vw, 5.1rem);
+  font-weight: 900;
+  line-height: 1.02;
+  text-align: center;
+  text-shadow: 0 0 16px rgba(216, 180, 254, 0.92), 0 0 40px rgba(168, 85, 247, 0.72), 0 4px 0 rgba(67, 56, 202, 0.28);
+  animation: finalMessagePop 1.4s cubic-bezier(0.2, 1.4, 0.35, 1) both, finalMessageGlow 2.2s ease-in-out infinite alternate;
+}
+
+.final-love-message::before,
+.final-love-message::after {
+  position: absolute;
+  top: -18px;
+  width: 44px;
+  height: 44px;
+  background: #d8b4fe;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  content: '';
+  animation: sparkleSpin 2.2s linear infinite;
+}
+
+.final-love-message::before {
+  left: 5%;
+}
+
+.final-love-message::after {
+  right: 5%;
+}
+
+.final-heart-23 {
+  position: relative;
+  display: grid;
+  width: 190px;
+  height: 172px;
+  place-items: center;
+  color: #ffffff;
+  font-size: 3.35rem;
+  font-weight: 900;
+  text-shadow: 0 3px 10px rgba(88, 28, 135, 0.38);
+  animation: heart23Pop 1s cubic-bezier(0.2, 1.3, 0.35, 1) 0.3s both, heart23Beat 1.7s ease-in-out 1.3s infinite;
+}
+
+.final-heart-23::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, #c084fc, #ec4899);
+  clip-path: polygon(50% 100%, 8% 58%, 0 34%, 8% 12%, 30% 0, 50% 18%, 70% 0, 92% 12%, 100% 34%, 92% 58%);
+  filter: drop-shadow(0 16px 28px rgba(168, 85, 247, 0.46));
+  content: '';
+}
+
+.heart-controls {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  left: 24px;
+  z-index: 2;
+  display: grid;
+  gap: 12px;
+}
+
+.heart-controls__progress {
+  width: min(520px, 100%);
+  height: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+}
+
+.heart-controls__progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+}
+
+.heart-controls__message {
+  color: #ffffff;
+  font-weight: 900;
+  text-align: center;
+}
+
+.heart-controls__message--failed {
+  color: #991b1b;
+}
+
+@keyframes flyAway {
+  to {
+    opacity: 0;
+    transform: translateY(-760px) scale(1.45);
+  }
+}
+
+@keyframes bottleFloat {
+  0%,
+  100% {
+    transform: translate3d(-8px, -10px, 0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translate3d(10px, 16px, 0) rotate(3deg);
+  }
+}
+
+@keyframes balloonDescend {
+  from {
+    transform: translateY(-150px);
+  }
+
+  to {
+    transform: translateY(36px);
+  }
+}
+
+@keyframes balloonPickup {
+  0% {
+    transform: translateY(210px) scale(0.78);
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-34px) scale(0.92);
+    opacity: 1;
+  }
+}
+
+@keyframes bottleTaken {
+  0%,
+  45% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-82px) scale(0.48);
+    opacity: 0;
+  }
+}
+
+@keyframes boyCollect {
+  from {
+    transform: translateX(-30px);
+  }
+
+  to {
+    transform: translateX(145px);
+  }
+}
+
+@keyframes boyWalk {
+  from {
+    transform: translateX(-90px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes boyDropFromBalloon {
+  0% {
+    transform: translateY(-120px) scale(0.46);
+    opacity: 0;
+  }
+
+  42% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(0) scale(0.78);
+    opacity: 1;
+  }
+}
+
+@keyframes giftLift {
+  from {
+    transform: translateY(64px) scale(0.75);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes balloonLand {
+  from {
+    transform: translateY(-120px) scale(0.98);
+  }
+
+  to {
+    transform: translateY(42px) scale(0.98);
+  }
+}
+
+@keyframes giftOffer {
+  from {
+    transform: translateX(-40px) translateY(22px) scale(0.7);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes closeLetter {
+  from {
+    transform: rotateX(70deg) scale(1.12);
+    opacity: 0;
+  }
+
+  to {
+    transform: rotateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes finalMessagePop {
+  from {
+    opacity: 0;
+    transform: translateY(-42px) scale(0.72);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes finalMessageGlow {
+  to {
+    filter: drop-shadow(0 0 22px rgba(216, 180, 254, 0.96));
+  }
+}
+
+@keyframes sparkleSpin {
+  to {
+    transform: rotate(360deg) scale(1.12);
+  }
+}
+
+@keyframes heart23Pop {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.65);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heart23Beat {
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@media (max-width: 720px) {
+  .heart-game__header {
+    flex-direction: column;
+  }
+
+  .heart-stage {
+    min-height: 860px;
+    padding: 18px;
+  }
+
+  .heart-game--space .heart-stage {
+    min-height: 980px;
+  }
+
+  .heart-balloon {
+    width: min(330px, 86vw);
+    height: min(460px, 120vw);
+  }
+
+  .letter {
+    padding: 20px;
+  }
+
+  .ground-scene__skyline {
+    width: min(620px, 96vw);
+    height: 610px;
+    transform: scale(0.82);
+  }
+
+  .ground-scene .delivery__boy {
+    left: 270px;
+  }
+
+  .ground-scene .delivery__girl {
+    right: 90px;
+  }
+
+  .delivery__person:has(.delivery__photo:not([hidden])) {
+    width: 150px;
+    height: 205px;
+  }
+
+  .delivery__photo {
+    width: 150px;
+  }
+
+  .delivery__photo--girl {
+    width: 162px;
+  }
+
+  .delivery__boy--pickup {
+    left: calc(50% - 12px);
+  }
+
+  .final-scene {
+    gap: 26px;
+    padding-top: 44px;
+  }
+
+  .closed-letter {
+    margin-top: 110px;
+  }
+
+  .final-heart-23 {
+    width: 156px;
+    height: 142px;
+    font-size: 2.8rem;
+  }
+}

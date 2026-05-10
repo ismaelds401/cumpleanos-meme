@@ -1,0 +1,343 @@
+.customizer {
+  display: grid;
+  gap: 20px;
+}
+
+.customizer__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.customizer__eyebrow {
+  margin: 0 0 6px;
+  color: var(--color-secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.customizer__hint {
+  max-width: 680px;
+  margin-top: 8px;
+  color: var(--color-muted);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.customizer__layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.9fr) minmax(0, 1.1fr);
+  gap: 22px;
+  align-items: stretch;
+}
+
+.avatar,
+.wardrobe {
+  padding: 24px;
+}
+
+.avatar {
+  display: grid;
+  gap: 18px;
+}
+
+.avatar__stage {
+  position: relative;
+  display: grid;
+  min-height: 520px;
+  place-items: center;
+  overflow: hidden;
+  background: #fff7fb;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+}
+
+.avatar__stage--complete {
+  background: #dcfce7;
+}
+
+.person {
+  position: relative;
+  width: min(270px, 78vw);
+  height: 430px;
+}
+
+.avatar__complete {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  padding: 12px 14px;
+  color: #065f46;
+  background: rgba(236, 253, 245, 0.92);
+  border-radius: 14px;
+  font-weight: 800;
+}
+
+.avatar__complete span {
+  font-size: 0.86rem;
+}
+
+.person::before {
+  position: absolute;
+  top: 38px;
+  left: 72px;
+  width: 128px;
+  height: 150px;
+  background: #5b2b1f;
+  border-radius: 54px 54px 64px 64px;
+  content: '';
+}
+
+.person span {
+  position: absolute;
+  display: block;
+}
+
+.person span::before,
+.person span::after {
+  content: '';
+}
+
+.person__cap {
+  top: 12px;
+  left: 92px;
+  width: 100px;
+  height: 52px;
+  background: var(--item-color);
+  clip-path: polygon(0 100%, 12% 34%, 28% 76%, 50% 10%, 72% 76%, 88% 34%, 100% 100%);
+}
+
+.person__cap::after {
+  position: absolute;
+  right: 43px;
+  bottom: 8px;
+  width: 14px;
+  height: 14px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.person__head {
+  top: 48px;
+  left: 90px;
+  width: 92px;
+  height: 98px;
+  background: #f0b38f;
+  border-radius: 44% 44% 48% 48%;
+}
+
+.person__head::before,
+.person__head::after {
+  position: absolute;
+  top: 36px;
+  width: 10px;
+  height: 10px;
+  background: #1f2937;
+  border-radius: 50%;
+}
+
+.person__head::before {
+  left: 25px;
+}
+
+.person__head::after {
+  right: 25px;
+}
+
+.person__shirt {
+  top: 150px;
+  left: 64px;
+  width: 142px;
+  height: 135px;
+  background: var(--item-color);
+  border-radius: 32px 32px 18px 18px;
+}
+
+.person__shirt::before,
+.person__shirt::after {
+  position: absolute;
+  top: 18px;
+  width: 50px;
+  height: 106px;
+  background: inherit;
+  border-radius: 28px;
+}
+
+.person__shirt::before {
+  left: -42px;
+  transform: rotate(15deg);
+}
+
+.person__shirt::after {
+  right: -42px;
+  transform: rotate(-15deg);
+}
+
+.person__pants {
+  top: 275px;
+  left: 55px;
+  width: 160px;
+  height: 112px;
+  background: var(--item-color);
+  clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+  border-radius: 14px 14px 28px 28px;
+}
+
+.person__pants::before,
+.person__pants::after {
+  position: absolute;
+  top: 88px;
+  width: 36px;
+  height: 54px;
+  background: #f0b38f;
+  border-radius: 0 0 18px 18px;
+}
+
+.person__pants::before {
+  left: 38px;
+}
+
+.person__pants::after {
+  right: 38px;
+}
+
+.person__shoes {
+  top: 401px;
+  left: 63px;
+  width: 64px;
+  height: 24px;
+  background: var(--item-color);
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  border-radius: 24px 12px 12px 24px;
+  box-shadow: 86px 0 0 var(--item-color), 86px 0 0 1px rgba(15, 23, 42, 0.15);
+}
+
+.wardrobe {
+  display: grid;
+  gap: 20px;
+}
+
+.wardrobe__topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.wardrobe__groups {
+  display: grid;
+  gap: 18px;
+}
+
+.wardrobe__group {
+  display: grid;
+  gap: 10px;
+}
+
+.wardrobe__group h2 {
+  font-size: 1rem;
+}
+
+.wardrobe__options {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.clothing-option {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  min-height: 88px;
+  padding: 12px 8px;
+  color: var(--color-text);
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.clothing-option:hover {
+  background: #ffe4ec;
+  border-color: #fda4af;
+  transform: translateY(-1px);
+}
+
+.clothing-option span {
+  width: 34px;
+  height: 34px;
+  background: var(--item-color);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 50%;
+}
+
+.clothing-option--selected {
+  background: #ffe4ec;
+  border-color: var(--color-primary);
+}
+
+.customizer__feedback {
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.customizer__feedback--correct {
+  color: #065f46;
+  background: #dcfce7;
+}
+
+.customizer__feedback--incorrect {
+  color: #991b1b;
+  background: #fee2e2;
+}
+
+@media (max-width: 980px) {
+  .customizer__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .avatar__stage {
+    min-height: 460px;
+  }
+}
+
+@media (max-width: 620px) {
+  .customizer__header {
+    flex-direction: column;
+  }
+
+  .avatar,
+  .wardrobe {
+    padding: 18px;
+  }
+
+  .wardrobe__options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .person {
+    transform: scale(0.86);
+  }
+}

@@ -1,0 +1,20 @@
+<section class="progress panel" aria-label="Progreso del juego">
+  <div class="progress__item">
+    <span>Piezas desbloqueadas</span>
+    <strong>{{ game.unlockedPieces() }}/{{ game.totalPieces }}</strong>
+  </div>
+
+  <div class="progress__track" aria-hidden="true">
+    <span [style.width.%]="game.progressPercent()"></span>
+  </div>
+
+  <div class="progress__item">
+    <span>Puntaje</span>
+    <strong>{{ game.state().score }}</strong>
+  </div>
+
+  <div class="progress__item">
+    <span>Pregunta</span>
+    <strong>{{ game.state().correctAnswers + 1 > game.questions.length ? game.questions.length : game.state().correctAnswers + 1 }}/{{ game.questions.length }}</strong>
+  </div>
+</section>

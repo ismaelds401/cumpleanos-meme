@@ -1,0 +1,103 @@
+<section class="treasure screen">
+  <header class="treasure__header">
+    <div>
+      <p class="treasure__eyebrow">Nivel 3</p>
+      <h1>Camino de recuerdos</h1>
+      <p class="treasure__hint">
+        Haz click en cada recuerdo, identifica la imagen y consigue todas las llaves para abrir su cofre de cumpleanos.
+      </p>
+    </div>
+    <button class="ghost-button" type="button" (click)="game.restartGame()">Salir</button>
+  </header>
+
+  <div class="treasure__status">
+    <div class="key-ring" aria-label="Llaves conseguidas">
+      <span
+        *ngFor="let key of keySlots"
+        class="key-ring__key"
+        [ngClass]="{ 'key-ring__key--unlocked': game.unlockedKeys() >= key }"
+      >
+        Llave {{ key }}
+      </span>
+    </div>
+    <strong>{{ game.unlockedKeys() }}/{{ game.config.treasurePath.length }} llaves</strong>
+  </div>
+
+  <div class="treasure__layout">
+    <article class="map panel">
+      <svg class="map__route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 16 88 C 52 86, 89 82, 78 72 S 4 66, 25 55 S 94 50, 74 38 S 8 28, 34 21 S 68 16, 84 8" />
+      </svg>
+
+      <button
+        *ngFor="let point of game.config.treasurePath"
+        class="map__point"
+        type="button"
+        [class.map__point--unlocked]="isUnlocked(point.id)"
+        [style.left.%]="point.position.left"
+        [style.top.%]="point.position.top"
+        [disabled]="isUnlocked(point.id)"
+        (click)="game.openTreasurePoint(point.id)"
+      >
+        <span>{{ point.id }}</span>
+      </button>
+    </article>
+
+    <aside class="chest panel" [ngClass]="{ 'chest--open': game.state().treasureChestOpen }">
+      <div class="chest__box" aria-hidden="true">
+        <span class="chest__lid"></span>
+        <span class="chest__body"></span>
+        <span class="chest__lock"></span>
+      </div>
+
+      <div class="chest__copy">
+        <h2>{{ game.state().treasureChestOpen ? 'Regalo abierto' : 'Regalo cerrado' }}</h2>
+        <p>{{ game.state().treasureMessage || 'El regalo se abrira cuando juntes las 6 llaves.' }}</p>
+      </div>
+
+      <button
+        class="primary-button"
+        type="button"
+        [disabled]="!game.hasAllTreasureKeys()"
+        (click)="finishLevel()"
+      >
+        Abrir portal final
+      </button>
+    </aside>
+  </div>
+
+  <div *ngIf="game.activeTreasurePoint() as point" class="modal" role="dialog" aria-modal="true">
+    <article class="modal__content panel">
+      <button class="modal__close" type="button" aria-label="Cerrar" (click)="game.closeTreasurePoint()">x</button>
+
+      <div class="modal__image" [style.background-image]="'url(' + point.imageUrl + ')'"></div>
+
+      <div class="modal__body">
+        <p class="modal__eyebrow">{{ point.title }}</p>
+        <h2>Que recuerdo es este?</h2>
+
+        <div class="modal__answers">
+          <button
+            *ngFor="let alternative of point.alternatives"
+            class="secondary-button"
+            type="button"
+            (click)="chooseAnswer(alternative.id)"
+          >
+            {{ alternative.label }}
+          </button>
+        </div>
+
+        <p
+          *ngIf="game.state().treasureMessage"
+          class="modal__feedback"
+          [ngClass]="{
+            'modal__feedback--correct': game.state().treasureStatus === 'correct',
+            'modal__feedback--incorrect': game.state().treasureStatus === 'incorrect'
+          }"
+        >
+          {{ game.state().treasureMessage }}
+        </p>
+      </div>
+    </article>
+  </div>
+</section>

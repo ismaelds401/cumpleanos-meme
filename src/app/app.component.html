@@ -1,0 +1,9 @@
+<main class="app-shell" [ngSwitch]="game.state().phase">
+  <app-home *ngSwitchCase="'home'"></app-home>
+  <app-game-board *ngSwitchCase="'playing'"></app-game-board>
+  <app-customization-level *ngSwitchCase="'customizing'"></app-customization-level>
+  <app-treasure-path *ngSwitchCase="'treasure'"></app-treasure-path>
+  <app-creation-level *ngSwitchCase="'creating'"></app-creation-level>
+  <app-heart-flight-level *ngSwitchCase="'heartFlight'"></app-heart-flight-level>
+  <app-result-screen *ngSwitchCase="'finished'"></app-result-screen>
+</main>
