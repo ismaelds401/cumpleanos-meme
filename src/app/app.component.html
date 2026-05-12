@@ -1,4 +1,4 @@
-<main class="app-shell" [ngSwitch]="game.state().phase">
+<main class="app-shell" [ngSwitch]="game.state().phase" (click)="startMusic()">
   <app-home *ngSwitchCase="'home'"></app-home>
   <app-game-board *ngSwitchCase="'playing'"></app-game-board>
   <app-customization-level *ngSwitchCase="'customizing'"></app-customization-level>
@@ -7,3 +7,5 @@
   <app-heart-flight-level *ngSwitchCase="'heartFlight'"></app-heart-flight-level>
   <app-result-screen *ngSwitchCase="'finished'"></app-result-screen>
 </main>
+
+<audio #backgroundMusic class="background-music" src="assets/img/Morat.mp3" controls loop></audio>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { NgSwitch, NgSwitchCase } from '@angular/common';
 
 import { CreationLevelComponent } from './components/creation-level/creation-level.component';
@@ -29,4 +29,25 @@ import { GameService } from './services/game.service';
 })
 export class AppComponent {
   readonly game = inject(GameService);
+
+  @ViewChild('backgroundMusic') private backgroundMusic?: ElementRef<HTMLAudioElement>;
+
+  private hasStartedMusic = false;
+
+  startMusic(): void {
+    if (this.hasStartedMusic) {
+      return;
+    }
+
+    const audio = this.backgroundMusic?.nativeElement;
+
+    if (!audio) {
+      return;
+    }
+
+    audio.volume = 0.45;
+    void audio.play().then(() => {
+      this.hasStartedMusic = true;
+    });
+  }
 }

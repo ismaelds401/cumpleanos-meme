@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, ElementRef, OnDestroy, ViewChild, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 
 import { GameService } from '../../services/game.service';
 
@@ -14,14 +14,11 @@ export class HeartFlightLevelComponent implements OnDestroy {
   readonly game = inject(GameService);
   readonly stars = Array.from({ length: 150 }, (_, index) => index + 1);
 
-  @ViewChild('letterAudio') private letterAudio?: ElementRef<HTMLAudioElement>;
-
   private failTimer: ReturnType<typeof window.setTimeout> | null = null;
   private bottleTimer: ReturnType<typeof window.setTimeout> | null = null;
   private videoTimer: ReturnType<typeof window.setTimeout> | null = null;
 
   ngOnDestroy(): void {
-    this.letterAudio?.nativeElement.pause();
     this.clearTimers();
   }
 
@@ -58,16 +55,6 @@ export class HeartFlightLevelComponent implements OnDestroy {
 
   openLetter(): void {
     this.game.openLoveLetter();
-    window.setTimeout(() => {
-      const audio = this.letterAudio?.nativeElement;
-
-      if (!audio) {
-        return;
-      }
-
-      audio.currentTime = 0;
-      void audio.play();
-    });
   }
 
   hideMissingAsset(event: Event): void {

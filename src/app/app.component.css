@@ -1,3 +1,12 @@
 :host {
   display: block;
 }
+
+.background-music {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 20;
+  width: min(320px, calc(100vw - 32px));
+  opacity: 0.86;
+}
