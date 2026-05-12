@@ -14,12 +14,17 @@
         class="avatar__stage"
         [ngClass]="{ 'avatar__stage--complete': game.state().customizationStatus === 'correct' }"
       >
-        <div class="person">
-          <span class="person__cap" [ngStyle]="optionStyle('gorra')"></span>
-          <span class="person__head"></span>
-          <span class="person__shirt" [ngStyle]="optionStyle('polo')"></span>
-          <span class="person__pants" [ngStyle]="optionStyle('pantalon')"></span>
-          <span class="person__shoes" [ngStyle]="optionStyle('zapatillas')"></span>
+        <div class="avatar__photo-frame">
+          <img
+            class="avatar__shadow-photo"
+            src="assets/img/nivel2-sombra.jpg"
+            alt="Foto de la cumpleanera en escala de grises"
+          />
+          <span
+            *ngIf="game.state().customizationStatus === 'correct'"
+            class="avatar__gold-crown"
+            aria-hidden="true"
+          ></span>
         </div>
 
         <div *ngIf="game.state().customizationStatus === 'correct'" class="avatar__complete">

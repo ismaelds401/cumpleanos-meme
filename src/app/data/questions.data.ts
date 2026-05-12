@@ -3,14 +3,14 @@ import { Question } from '../models/question.model';
 export const QUESTIONS: Question[] = [
   {
     id: 1,
-    text: 'Que edad cumple la cumpleanera mas especial?',
-    options: ['21 anos', '22 anos', '23 anos', '24 anos'],
-    correctAnswer: '23 anos',
-    explanation: 'Exacto, hoy celebramos sus 23 anos con todo el carino que merece.'
+    text: '¿Que edad cumple mí meme?',
+    options: ['21 años', '22 años', '23 años', '24 años'],
+    correctAnswer: '23 años',
+    explanation: 'Muy bien amor, hoy cumples 23 años, eres muy inteligente 🙈'
   },
   {
     id: 2,
-    text: 'Que hace que este juego sea especial?',
+    text: '¿Que hace que este juego sea especial?',
     options: [
       'Que es una sorpresa hecha con amor',
       'Que es una tarea de rutina',
@@ -18,90 +18,90 @@ export const QUESTIONS: Question[] = [
       'Que no tiene pistas bonitas'
     ],
     correctAnswer: 'Que es una sorpresa hecha con amor',
-    explanation: 'Este juego fue pensado como un detalle para hacerla sonreir en su dia.'
+    explanation: 'Esta pagina fue echa para hacerte sonreir en tú dia mí cachetona ❤'
   },
   {
     id: 3,
-    text: 'Que deberia desbloquear cada respuesta correcta?',
+    text: '¿cuanto te amo ?',
     options: [
-      'Una pieza de un recuerdo bonito',
-      'Una pantalla vacia',
-      'Un mensaje aburrido',
-      'Un boton sin sentido'
+      'Muchoooooo',
+      'Muchooooooooooooo',
+      'Muchooooooooooooooooo',
+      'Muchooooooooooooooooooooooo'
     ],
-    correctAnswer: 'Una pieza de un recuerdo bonito',
-    explanation: 'Cada acierto revela una parte del rompecabezas y acerca la sorpresa final.'
+    correctAnswer: 'Muchooooooooooooooooooooooo',
+    explanation: 'Muy bien amor, eso estuvo dificil 🙊'
   },
   {
     id: 4,
-    text: 'Cual es el mejor plan para su cumpleanos?',
+    text: '¿Cual es el apodo que te doy usualmente?',
     options: [
-      'Ignorar la fecha',
-      'Celebrarla, consentirla y hacerla sentir amada',
-      'Hablar solo de pendientes',
-      'Resolver todo en silencio'
+      'Meme ❤',
+      'Gordita 🧡',
+      'Cachetona 💛',
+      'Chiquitita 💚'
     ],
-    correctAnswer: 'Celebrarla, consentirla y hacerla sentir amada',
-    explanation: 'Hoy toca celebrar su vida, su alegria y todo lo bonito que trae.'
+    correctAnswer: 'Meme ❤',
+    explanation: 'Muy bien amor , estuvo muy ficifil ? 💞'
   },
   {
     id: 5,
-    text: 'Que representa el cofre del ultimo nivel?',
+    text: 'Que eje importante de mi vida eres ?',
     options: [
-      'Un regalo final lleno de carino',
-      'Una caja cualquiera',
-      'Un archivo pendiente',
-      'Una puerta cerrada para siempre'
+      'Educación',
+      'Trabajo',
+      'Amor',
+      'Dinero'
     ],
-    correctAnswer: 'Un regalo final lleno de carino',
-    explanation: 'El cofre guarda la recompensa final despues de juntar las seis llaves.'
+    correctAnswer: 'Amor',
+    explanation: 'Te convertiste en la persona mas importante de mi vida'
   },
   {
     id: 6,
-    text: 'Que merece escuchar hoy tu enamorada?',
+    text: 'Tú color que creo favorito ?',
     options: [
-      'Que es muy importante para ti',
-      'Que el dia puede pasar desapercibido',
-      'Que no hay sorpresa',
-      'Que las respuestas no importan'
+      'Amarillo',
+      'Negro',
+      'Rojo',
+      'Verde'
     ],
-    correctAnswer: 'Que es muy importante para ti',
-    explanation: 'Porque este detalle existe para recordarle lo mucho que significa para ti.'
+    correctAnswer: 'Verde',
+    explanation: 'Si amor , y compre un regalo para ti de ese color 🙊'
   },
   {
     id: 7,
-    text: 'Que combina mejor con una sorpresa de cumpleanos?',
+    text: 'Otra sorpresa sera nuestra primera vez en algo 🙊',
     options: [
-      'Fotos, pistas, llaves y una cancion final',
-      'Solo textos largos',
-      'Cero celebracion',
-      'Un cronometro de examenes'
+      'Jacuzi',
+      'Viaje en avion',
+      'No quieres que te lo diga',
+      'Francia Paris'
     ],
-    correctAnswer: 'Fotos, pistas, llaves y una cancion final',
-    explanation: 'La aventura completa mezcla recuerdos, juego y una recompensa al final.'
+    correctAnswer: 'No quieres que te lo diga',
+    explanation: 'Ya sabia que no querias que te lo diga amor 🙀'
   },
   {
     id: 8,
-    text: 'Que mensaje deberia llevar esta aventura?',
+    text: 'A que tengo miedo ?',
     options: [
-      'Feliz cumpleanos, mi amor',
-      'No hay nada que celebrar',
-      'Fin del tramite',
-      'Pregunta sin respuesta'
+      'Arañas',
+      'Carros',
+      'Motos',
+      'Estar Solo'
     ],
-    correctAnswer: 'Feliz cumpleanos, mi amor',
-    explanation: 'Ese es el corazon de toda la experiencia: felicitarla con amor.'
+    correctAnswer: 'Estar Solo',
+    explanation: 'Si amor , eres la persona con quien me gusta estar siempre'
   },
   {
     id: 9,
-    text: 'Que pasa cuando completas todos los niveles?',
+    text: 'Que me gusta y no te gusta a la vez',
     options: [
-      'Se revela la sorpresa final',
-      'Se pierde el progreso',
-      'El juego vuelve al inicio sin premio',
-      'No ocurre nada'
+      'Volar',
+      'Cantar',
+      'Juagar al football',
+      'Bailar'
     ],
-    correctAnswer: 'Se revela la sorpresa final',
-    explanation: 'Al final queda una felicitacion especial para celebrar sus 23 anos.'
+    correctAnswer: 'Juagar al football',
+    explanation: 'Si pensaste en bailar , ya te dije que si me gusta, lo que pasa es que no me sale 😭'
   }
 ];

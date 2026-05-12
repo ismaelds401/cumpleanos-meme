@@ -1,7 +1,7 @@
 <section
   class="heart-game screen"
   [ngClass]="{
-    'heart-game--space': game.state().heartFlightStatus === 'bottle' || game.state().heartFlightStatus === 'bottleCollected' || game.state().heartFlightStatus === 'delivered' || game.state().heartFlightStatus === 'letterOpen' || game.state().heartFlightStatus === 'finalMessage'
+    'heart-game--space': game.state().heartFlightStatus === 'bottle' || game.state().heartFlightStatus === 'bottleCollected' || game.state().heartFlightStatus === 'video' || game.state().heartFlightStatus === 'finalMessage' || game.state().heartFlightStatus === 'letterOpen'
   }"
 >
   <header class="heart-game__header">
@@ -26,7 +26,7 @@
       [ngClass]="{
         'heart-balloon--failed': game.state().heartFlightStatus === 'failed',
         'heart-balloon--flying': game.state().heartFlightStatus === 'flying',
-        'heart-balloon--hidden': game.state().heartFlightStatus === 'bottle' || game.state().heartFlightStatus === 'bottleCollected' || game.state().heartFlightStatus === 'delivered' || game.state().heartFlightStatus === 'letterOpen' || game.state().heartFlightStatus === 'finalMessage'
+        'heart-balloon--hidden': game.state().heartFlightStatus === 'bottle' || game.state().heartFlightStatus === 'bottleCollected' || game.state().heartFlightStatus === 'video' || game.state().heartFlightStatus === 'finalMessage' || game.state().heartFlightStatus === 'letterOpen'
       }"
       aria-hidden="true"
     >
@@ -60,51 +60,30 @@
       <p>El chico sube con su corazon aerostatico y recoge la botella.</p>
     </div>
 
-    <div *ngIf="game.state().heartFlightStatus === 'delivered'" class="ground-scene">
-      <div class="ground-scene__skyline" aria-hidden="true">
-        <img
-          class="paris-photo-background"
-          src="assets/img/paris-france-background.png"
-          alt=""
-          (error)="hideMissingAsset($event)"
-        />
-        <span class="paris-skyline"></span>
-        <span class="eiffel-tower">
-          <span class="eiffel-tower__top"></span>
-          <span class="eiffel-tower__deck eiffel-tower__deck--upper"></span>
-          <span class="eiffel-tower__deck eiffel-tower__deck--lower"></span>
-        </span>
-        <div class="delivery-balloon delivery-balloon--ground">
-          <img class="delivery-balloon__image" src="assets/img/heart-balloon-ia.png" alt="" />
-        </div>
-        <span class="delivery__person delivery__boy">
-          <img class="delivery__photo delivery__photo--boy" src="assets/img/student-boy.png" alt="" (error)="hideMissingAsset($event)" />
-          <span class="delivery__backpack"></span>
-          <span class="delivery__notebooks"></span>
-        </span>
-        <span class="delivery__person delivery__girl">
-          <img class="delivery__photo delivery__photo--girl" src="assets/img/student-girl.png" alt="" (error)="hideMissingAsset($event)" />
-          <span class="delivery__backpack"></span>
-          <span class="delivery__notebooks"></span>
-        </span>
-        <span class="delivery__gift"></span>
-      </div>
+    <div *ngIf="game.state().heartFlightStatus === 'video'" class="birthday-video-scene">
+      <video
+        class="birthday-video"
+        src="assets/img/Video_cumple.mp4"
+        controls
+        autoplay
+        playsinline
+        (ended)="finishVideo()"
+      ></video>
+      <button class="primary-button story-button" type="button" (click)="finishVideo()">Continuar</button>
+    </div>
 
-      <button class="primary-button story-button" type="button" (click)="openLetter()">Leer carta</button>
+    <div *ngIf="game.state().heartFlightStatus === 'finalMessage'" class="final-scene" aria-live="polite">
+      <div class="closed-letter" aria-hidden="true"></div>
+      <div class="final-love-message">Tengo una carta para ti, mi amor</div>
+      <div class="final-heart-23" aria-label="Corazon 23">23</div>
+      <button class="primary-button" type="button" (click)="openLetter()">Leer carta</button>
     </div>
 
     <div *ngIf="game.state().heartFlightStatus === 'letterOpen'" class="letter panel" role="dialog" aria-label="Carta de cumpleanos">
       <p class="letter__eyebrow">Carta para mi cumpleanera</p>
       <h2>Para ti, mi amor</h2>
       <p *ngFor="let paragraph of game.config.loveLetterParagraphs">{{ paragraph }}</p>
-
-      <button class="primary-button" type="button" (click)="showFinalMessage()">Finalizar de leer</button>
-    </div>
-
-    <div *ngIf="game.state().heartFlightStatus === 'finalMessage'" class="final-scene" aria-live="polite">
-      <div class="closed-letter" aria-hidden="true"></div>
-      <div class="final-love-message">Te amo mucho mi meme, mi cachetona favorita, feliz cumpleanos</div>
-      <div class="final-heart-23" aria-label="Corazon 23">23</div>
+      <audio #letterAudio class="letter__audio" src="assets/img/Morat.mp3" controls loop></audio>
       <button class="primary-button" type="button" (click)="game.finishHeartFlightLevel()">Terminar sorpresa</button>
     </div>
 
@@ -126,7 +105,7 @@
       <button
         class="primary-button heart-controls__pump"
         type="button"
-        [disabled]="game.state().heartFlightStatus === 'flying' || game.state().heartFlightStatus === 'bottle' || game.state().heartFlightStatus === 'bottleCollected' || game.state().heartFlightStatus === 'delivered' || game.state().heartFlightStatus === 'letterOpen' || game.state().heartFlightStatus === 'finalMessage'"
+        [disabled]="game.state().heartFlightStatus === 'flying' || game.state().heartFlightStatus === 'bottle' || game.state().heartFlightStatus === 'bottleCollected' || game.state().heartFlightStatus === 'video' || game.state().heartFlightStatus === 'finalMessage' || game.state().heartFlightStatus === 'letterOpen'"
         (click)="pumpHeart()"
       >
         Apretar corazon

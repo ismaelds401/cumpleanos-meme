@@ -76,12 +76,12 @@ export const GAME_CONFIG: GameConfig = {
   allowSkipAfterWrongAnswer: true,
   puzzleRows: 3,
   puzzleColumns: 3,
-  puzzleImageUrl: 'assets/img/MEME01.png',
+  puzzleImageUrl: 'assets/img/Arbol_claro.jpeg',
   customizationTarget: {
-    polo: 'polo-rosa',
-    pantalon: 'pantalon-blanco',
-    zapatillas: 'zapatillas-doradas',
-    gorra: 'gorra-lila'
+    polo: 'polo-crema',
+    pantalon: 'pantalon-negro',
+    zapatillas: 'zapatillas-blancas',
+    gorra: 'gorra-dorada'
   },
   customizationOptions: [
     {
@@ -96,7 +96,7 @@ export const GAME_CONFIG: GameConfig = {
     },
     {
       id: 'pantalon',
-      label: 'Falda',
+      label: 'Pantalon',
       options: [
         { id: 'pantalon-blanco', label: 'Blanca', color: '#f8fafc' },
         { id: 'pantalon-rosa', label: 'Rosa', color: '#f9a8d4' },
@@ -129,72 +129,72 @@ export const GAME_CONFIG: GameConfig = {
     {
       id: 1,
       title: 'Recuerdo 1',
-      imageUrl: 'assets/img/MEME01.png',
-      correctAnswer: 'cumple-23',
+      imageUrl: 'assets/img/Angel.jpeg',
+      correctAnswer: 'reunion',
       alternatives: [
-        { id: 'cumple-23', label: 'Cumpleanos numero 23' },
-        { id: 'dia-cualquiera', label: 'Un dia cualquiera' },
-        { id: 'reunion', label: 'Una reunion seria' }
+        { id: 'cumple-23', label: 'Dia del trabajador' },
+        { id: 'dia-cualquiera', label: 'Celebrando vacaciones' },
+        { id: 'reunion', label: 'Concurso de disfrases' }
       ],
       position: { left: 16, top: 88 }
     },
     {
       id: 2,
       title: 'Recuerdo 2',
-      imageUrl: 'assets/img/MEME01.png',
+      imageUrl: 'assets/img/Carton.jpeg',
       correctAnswer: 'sonrisa',
       alternatives: [
-        { id: 'sonrisa', label: 'Su sonrisa favorita' },
-        { id: 'pantalla', label: 'Una pantalla vacia' },
-        { id: 'lista', label: 'Una lista de pendientes' }
+        { id: 'sonrisa', label: 'Mirada seria de ganadora' },
+        { id: 'pantalla', label: 'Mirada perdida' },
+        { id: 'lista', label: 'Don ta bebé 👶' }
       ],
       position: { left: 78, top: 72 }
     },
     {
       id: 3,
       title: 'Recuerdo 3',
-      imageUrl: 'assets/img/MEME01.png',
-      correctAnswer: 'sorpresa',
+      imageUrl: 'assets/img/Starback.jpeg',
+      correctAnswer: 'informe',
       alternatives: [
-        { id: 'sorpresa', label: 'Sorpresa hecha con amor' },
-        { id: 'horario', label: 'Horario de clases' },
-        { id: 'informe', label: 'Informe final' }
+        { id: 'sorpresa', label: 'Un dia en metro' },
+        { id: 'horario', label: 'Centro de Lima' },
+        { id: 'informe', label: 'Nuestro primer cafe caro 🙈' }
       ],
       position: { left: 25, top: 55 }
     },
     {
       id: 4,
       title: 'Recuerdo 4',
-      imageUrl: 'assets/img/MEME01.png',
+      imageUrl: 'assets/img/miraflores1.jpeg',
       correctAnswer: 'cita',
       alternatives: [
-        { id: 'mapa', label: 'Mapa cualquiera' },
-        { id: 'cita', label: 'Una cita bonita' },
-        { id: 'encuesta', label: 'Encuesta rapida' }
+        { id: 'mapa', label: 'Viaje al espacio' },
+        { id: 'cita', label: 'Sumando meses en Miraflores ❤' },
+        { id: 'encuesta', label: 'Paseo por Barranco' }
       ],
       position: { left: 74, top: 38 }
     },
     {
       id: 5,
       title: 'Recuerdo 5',
-      imageUrl: 'assets/img/MEME01.png',
+      imageUrl: 'assets/img/Sueños1.jpeg',
       correctAnswer: 'fiesta',
       alternatives: [
-        { id: 'fiesta', label: 'Fiesta para ella' },
-        { id: 'reunion', label: 'Reunion de proyecto' },
-        { id: 'examen', label: 'Examen parcial' }
+        { id: 'fiesta', label: 'Sueño profundo 💤' },
+        { id: 'reunion', label: 'Provocacion sensorial' },
+        { id: 'examen', label: 'Quitando migas de los dientes' }
       ],
       position: { left: 34, top: 21 }
     },
     {
       id: 6,
       title: 'Recuerdo 6',
-      imageUrl: 'assets/img/MEME01.png',
+      imageUrl: 'assets/img/Helado.jpeg',
       correctAnswer: 'cofre-final',
       alternatives: [
-        { id: 'llave-perdida', label: 'Llave perdida' },
-        { id: 'cofre-final', label: 'Regalo final' },
-        { id: 'pieza-puzzle', label: 'Pieza del rompecabezas' }
+        { id: 'llave-perdida', label: 'Salida casual' },
+        { id: 'cofre-final', label: 'Primer helado caro 🍨' },
+        { id: 'pieza-puzzle', label: 'Ida y vuelta del trabajo' }
       ],
       position: { left: 84, top: 8 }
     }
@@ -268,9 +268,10 @@ export const GAME_CONFIG: GameConfig = {
   heartFlightRequiredClicks: 18,
   heartFlightTimeoutMs: 1300,
   loveLetterParagraphs: [
-    'Mi amor, esta carta aparece al final porque todo este camino era para recordarte algo simple y enorme: te quiero muchisimo.',
-    'Me encanta tu forma de ser, tu risa, tu manera de iluminar los dias y esa mezcla tan tuya de ternura, fuerza y alegria.',
-    'Hoy cumples 23 anos y deseo que la vida te abrace bonito, que nunca te falten motivos para sonreir y que siempre sientas lo importante que eres para mi.',
-    'Gracias por ser mi enamorada, por existir en mi mundo y por hacer que quererte se sienta tan natural. Feliz cumpleanos, mi amor.'
+    '🎂🎂Hola meme, hoy cumples 23 años y queria regalarte algo que no se compre,porque tambien te compre algo jeje, algo hecho con tiempo, con detalle y con todo lo bonito que siento por ti.',
+    'Me enamora tu forma de ser: tu risa, tu ternura, tu caracter, esa luz tuya que aparece incluso en los dias simples y los vuelve especiales. Me gusta verte crecer, verte sonar, verte ser tu, y sentir que tengo la suerte enorme de caminar a tu lado.',
+    'Eres mi novia, mi companera, mi persona favorita para molestar, abrazar, cuidar y admirar. Si pudiera pedir algo por ti hoy, pediria que la vida te trate con la misma dulzura con la que tu has llegado a mi mundo.',
+    'Muchas gracias por ser mi compañera de viaje, te prometo que intentare darte la una vida muy bonita 🙈',
+    'Feliz cumpleanos, mi meme. Gracias por existir, por ser mi enamorada y por hacer que quererte se sienta tan natural. Te amo muchisimo mi cachetona preciosa ❤ 🎂.'
   ]
 };

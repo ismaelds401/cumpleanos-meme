@@ -97,7 +97,7 @@ export class GameService {
     }));
 
     if (!hasFinishedLevelOne) {
-      window.setTimeout(() => this.moveToNextPendingQuestion(), 850);
+      window.setTimeout(() => this.moveToNextPendingQuestion(), 5000);
     }
   }
 
@@ -145,7 +145,7 @@ export class GameService {
           phase: 'treasure'
         }));
       }
-    }, 2400);
+    }, 5000);
   }
 
   openTreasurePoint(pointId: number): void {
@@ -272,9 +272,9 @@ export class GameService {
       currentState.heartFlightStatus === 'flying' ||
       currentState.heartFlightStatus === 'bottle' ||
       currentState.heartFlightStatus === 'bottleCollected' ||
-      currentState.heartFlightStatus === 'delivered' ||
-      currentState.heartFlightStatus === 'letterOpen' ||
-      currentState.heartFlightStatus === 'finalMessage'
+      currentState.heartFlightStatus === 'video' ||
+      currentState.heartFlightStatus === 'finalMessage' ||
+      currentState.heartFlightStatus === 'letterOpen'
     ) {
       return;
     }
@@ -333,20 +333,32 @@ export class GameService {
     }));
   }
 
-  deliverLoveBottle(): void {
+  playBirthdayVideo(): void {
     if (this.state().heartFlightStatus !== 'bottleCollected') {
       return;
     }
 
     this.state.update((state) => ({
       ...state,
-      heartFlightStatus: 'delivered',
-      heartFlightMessage: 'En la tierra, el chico bajo y le entrego la carta a su chica.'
+      heartFlightStatus: 'video',
+      heartFlightMessage: 'La botella llego con un video especial para ti.'
+    }));
+  }
+
+  showFinalHeartMessage(): void {
+    if (this.state().heartFlightStatus !== 'video') {
+      return;
+    }
+
+    this.state.update((state) => ({
+      ...state,
+      heartFlightStatus: 'finalMessage',
+      heartFlightMessage: 'El video termino. Tu carta especial esta lista para abrirse.'
     }));
   }
 
   openLoveLetter(): void {
-    if (this.state().heartFlightStatus !== 'delivered') {
+    if (this.state().heartFlightStatus !== 'finalMessage') {
       return;
     }
 
@@ -354,24 +366,12 @@ export class GameService {
       ...state,
       heartFlightStatus: 'letterOpen',
       loveLetterOpened: true,
-      heartFlightMessage: 'La carta se abrio como un pergamino con todo el carino guardado para la cumpleanera.'
-    }));
-  }
-
-  showFinalHeartMessage(): void {
-    if (this.state().heartFlightStatus !== 'letterOpen') {
-      return;
-    }
-
-    this.state.update((state) => ({
-      ...state,
-      heartFlightStatus: 'finalMessage',
-      heartFlightMessage: 'La carta se cerro y el mensaje final aparecio arriba.'
+      heartFlightMessage: 'La carta se abrio con una cancion especial.'
     }));
   }
 
   finishHeartFlightLevel(): void {
-    if (this.state().heartFlightStatus !== 'finalMessage') {
+    if (this.state().heartFlightStatus !== 'letterOpen') {
       return;
     }
 

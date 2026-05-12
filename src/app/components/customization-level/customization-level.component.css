@@ -65,18 +65,68 @@ h1 {
   border-radius: 16px;
 }
 
+.avatar__photo-frame {
+  position: relative;
+  display: grid;
+  width: min(100%, 430px);
+  max-height: 500px;
+  place-items: center;
+}
+
+.avatar__shadow-photo {
+  display: block;
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 14px;
+  filter: grayscale(1);
+  box-shadow: 0 18px 40px rgba(71, 85, 105, 0.18);
+}
+
 .avatar__stage--complete {
   background: #dcfce7;
 }
 
-.person {
-  position: relative;
-  width: min(270px, 78vw);
-  height: 430px;
+.avatar__stage--complete .avatar__shadow-photo {
+  filter: none;
+}
+
+.avatar__gold-crown {
+  position: absolute;
+  top: 2%;
+  left: 52%;
+  width: 118px;
+  height: 72px;
+  background: linear-gradient(135deg, #fde68a, #f59e0b 54%, #b45309);
+  clip-path: polygon(0 100%, 9% 34%, 25% 70%, 42% 12%, 58% 70%, 75% 24%, 91% 70%, 100% 100%);
+  filter: drop-shadow(0 10px 14px rgba(146, 64, 14, 0.35));
+  transform: translateX(-50%) rotate(-7deg);
+}
+
+.avatar__gold-crown::before,
+.avatar__gold-crown::after {
+  position: absolute;
+  bottom: 9px;
+  width: 11px;
+  height: 11px;
+  background: #fff7ed;
+  border-radius: 50%;
+  box-shadow: 37px -40px 0 #fff7ed, 74px -20px 0 #fff7ed;
+  content: '';
+}
+
+.avatar__gold-crown::before {
+  left: 12px;
+}
+
+.avatar__gold-crown::after {
+  right: 12px;
+  box-shadow: none;
 }
 
 .avatar__complete {
   position: absolute;
+  z-index: 2;
   right: 18px;
   bottom: 18px;
   display: grid;
@@ -89,141 +139,6 @@ h1 {
 
 .avatar__complete span {
   font-size: 0.86rem;
-}
-
-.person::before {
-  position: absolute;
-  top: 38px;
-  left: 72px;
-  width: 128px;
-  height: 150px;
-  background: #5b2b1f;
-  border-radius: 54px 54px 64px 64px;
-  content: '';
-}
-
-.person span {
-  position: absolute;
-  display: block;
-}
-
-.person span::before,
-.person span::after {
-  content: '';
-}
-
-.person__cap {
-  top: 12px;
-  left: 92px;
-  width: 100px;
-  height: 52px;
-  background: var(--item-color);
-  clip-path: polygon(0 100%, 12% 34%, 28% 76%, 50% 10%, 72% 76%, 88% 34%, 100% 100%);
-}
-
-.person__cap::after {
-  position: absolute;
-  right: 43px;
-  bottom: 8px;
-  width: 14px;
-  height: 14px;
-  background: #ffffff;
-  border-radius: 50%;
-}
-
-.person__head {
-  top: 48px;
-  left: 90px;
-  width: 92px;
-  height: 98px;
-  background: #f0b38f;
-  border-radius: 44% 44% 48% 48%;
-}
-
-.person__head::before,
-.person__head::after {
-  position: absolute;
-  top: 36px;
-  width: 10px;
-  height: 10px;
-  background: #1f2937;
-  border-radius: 50%;
-}
-
-.person__head::before {
-  left: 25px;
-}
-
-.person__head::after {
-  right: 25px;
-}
-
-.person__shirt {
-  top: 150px;
-  left: 64px;
-  width: 142px;
-  height: 135px;
-  background: var(--item-color);
-  border-radius: 32px 32px 18px 18px;
-}
-
-.person__shirt::before,
-.person__shirt::after {
-  position: absolute;
-  top: 18px;
-  width: 50px;
-  height: 106px;
-  background: inherit;
-  border-radius: 28px;
-}
-
-.person__shirt::before {
-  left: -42px;
-  transform: rotate(15deg);
-}
-
-.person__shirt::after {
-  right: -42px;
-  transform: rotate(-15deg);
-}
-
-.person__pants {
-  top: 275px;
-  left: 55px;
-  width: 160px;
-  height: 112px;
-  background: var(--item-color);
-  clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
-  border-radius: 14px 14px 28px 28px;
-}
-
-.person__pants::before,
-.person__pants::after {
-  position: absolute;
-  top: 88px;
-  width: 36px;
-  height: 54px;
-  background: #f0b38f;
-  border-radius: 0 0 18px 18px;
-}
-
-.person__pants::before {
-  left: 38px;
-}
-
-.person__pants::after {
-  right: 38px;
-}
-
-.person__shoes {
-  top: 401px;
-  left: 63px;
-  width: 64px;
-  height: 24px;
-  background: var(--item-color);
-  border: 1px solid rgba(15, 23, 42, 0.15);
-  border-radius: 24px 12px 12px 24px;
-  box-shadow: 86px 0 0 var(--item-color), 86px 0 0 1px rgba(15, 23, 42, 0.15);
 }
 
 .wardrobe {
@@ -321,6 +236,11 @@ h1 {
   .avatar__stage {
     min-height: 460px;
   }
+
+  .avatar__gold-crown {
+    width: 96px;
+    height: 60px;
+  }
 }
 
 @media (max-width: 620px) {
@@ -335,9 +255,5 @@ h1 {
 
   .wardrobe__options {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .person {
-    transform: scale(0.86);
   }
 }

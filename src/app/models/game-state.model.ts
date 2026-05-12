@@ -13,9 +13,9 @@ export type HeartFlightStatus =
   | 'flying'
   | 'bottle'
   | 'bottleCollected'
-  | 'delivered'
-  | 'letterOpen'
-  | 'finalMessage';
+  | 'video'
+  | 'finalMessage'
+  | 'letterOpen';
 
 export interface GameState {
   phase: GamePhase;

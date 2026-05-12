@@ -458,6 +458,33 @@ h1 {
   color: #9d174d;
 }
 
+.letter__audio {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.birthday-video-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 18px;
+  padding: 24px;
+  background: rgba(2, 6, 23, 0.68);
+}
+
+.birthday-video {
+  display: block;
+  width: min(960px, 94vw);
+  max-height: min(74vh, 720px);
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.46);
+}
+
 .letter__title {
   color: #9f1239;
   font-size: clamp(2.2rem, 6vw, 4.8rem);

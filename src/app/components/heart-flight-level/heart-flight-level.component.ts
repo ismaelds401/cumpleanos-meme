@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, OnDestroy, inject } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild, inject } from '@angular/core';
 
 import { GameService } from '../../services/game.service';
 
@@ -14,11 +14,14 @@ export class HeartFlightLevelComponent implements OnDestroy {
   readonly game = inject(GameService);
   readonly stars = Array.from({ length: 150 }, (_, index) => index + 1);
 
+  @ViewChild('letterAudio') private letterAudio?: ElementRef<HTMLAudioElement>;
+
   private failTimer: ReturnType<typeof window.setTimeout> | null = null;
   private bottleTimer: ReturnType<typeof window.setTimeout> | null = null;
-  private deliveryTimer: ReturnType<typeof window.setTimeout> | null = null;
+  private videoTimer: ReturnType<typeof window.setTimeout> | null = null;
 
   ngOnDestroy(): void {
+    this.letterAudio?.nativeElement.pause();
     this.clearTimers();
   }
 
@@ -43,22 +46,28 @@ export class HeartFlightLevelComponent implements OnDestroy {
     }
   }
 
+  collectBottle(): void {
+    this.clearVideoTimer();
+    this.game.collectLoveBottle();
+    this.videoTimer = window.setTimeout(() => this.game.playBirthdayVideo(), 2100);
+  }
+
+  finishVideo(): void {
+    this.game.showFinalHeartMessage();
+  }
+
   openLetter(): void {
     this.game.openLoveLetter();
-  }
+    window.setTimeout(() => {
+      const audio = this.letterAudio?.nativeElement;
 
-  collectBottle(): void {
-    this.clearDeliveryTimer();
-    this.game.collectLoveBottle();
-    this.deliveryTimer = window.setTimeout(() => this.game.deliverLoveBottle(), 2100);
-  }
+      if (!audio) {
+        return;
+      }
 
-  deliverBottle(): void {
-    this.game.deliverLoveBottle();
-  }
-
-  showFinalMessage(): void {
-    this.game.showFinalHeartMessage();
+      audio.currentTime = 0;
+      void audio.play();
+    });
   }
 
   hideMissingAsset(event: Event): void {
@@ -80,7 +89,7 @@ export class HeartFlightLevelComponent implements OnDestroy {
 
   private clearTimers(): void {
     this.clearFailTimer();
-    this.clearDeliveryTimer();
+    this.clearVideoTimer();
 
     if (this.bottleTimer) {
       window.clearTimeout(this.bottleTimer);
@@ -88,10 +97,10 @@ export class HeartFlightLevelComponent implements OnDestroy {
     }
   }
 
-  private clearDeliveryTimer(): void {
-    if (this.deliveryTimer) {
-      window.clearTimeout(this.deliveryTimer);
-      this.deliveryTimer = null;
+  private clearVideoTimer(): void {
+    if (this.videoTimer) {
+      window.clearTimeout(this.videoTimer);
+      this.videoTimer = null;
     }
   }
 }
